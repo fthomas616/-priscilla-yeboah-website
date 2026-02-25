@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Search | Priscilla Yeboah Real Estate</title>
+    <meta name="description" content="Search for your dream home with Priscilla Yeboah. Live property listings updated daily.">
+    
+    <!-- Google Fonts - Jost Only -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           CSS VARIABLES - APPROVED COLOR PALETTE
+           ======================================== */
+        :root {
+            --dusty-blue: #6b8fa3;
+            --dusty-blue-dark: #4a6575;
+            --dusty-blue-light: #8baec1;
+            --champagne: #d4af7a;
+            --champagne-pale: #f4ead8;
+            --warm-white: #faf8f5;
+            --warm-cream: #f5f1eb;
+            --charcoal: #2c2c2c;
+            --soft-gray: #6b6b6b;
+        }
+        
+        /* ========================================
+           RESET & BASE STYLES
+           ======================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Jost', sans-serif;
+            color: var(--charcoal);
+            background: var(--warm-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* ========================================
+           NAVIGATION - IDENTICAL TO INDEX.HTML
+           ======================================== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(250, 248, 245, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(107, 143, 163, 0.1);
+            padding: 1.2rem 5%;
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Jost', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--dusty-blue-dark);
+            text-decoration: none;
+            letter-spacing: 0.02em;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 400;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            letter-spacing: 0.02em;
+        }
+        
+        .nav-links a:hover {
+            color: var(--dusty-blue);
+        }
+        
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--dusty-blue-dark);
+            cursor: pointer;
+        }
+        
+        /* ========================================
+           BACK TO TOP BUTTON - IDENTICAL
+           ======================================== */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--dusty-blue);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 4px 12px rgba(107, 143, 163, 0.3);
+            border: none;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: var(--dusty-blue-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(107, 143, 163, 0.4);
+        }
+        
+        /* ========================================
+           BACK TO HOME BUTTON
+           ======================================== */
+        .back-to-home {
+            position: fixed;
+            top: 90px;
+            right: 2rem;
+            padding: 0.8rem 1.5rem;
+            background: var(--champagne);
+            color: var(--charcoal);
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            z-index: 998;
+            box-shadow: 0 4px 12px rgba(212, 175, 122, 0.3);
+        }
+        
+        .back-to-home:hover {
+            background: var(--dusty-blue);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(212, 175, 122, 0.4);
+        }
+        
+        /* ========================================
+           SEARCH SECTION
+           ======================================== */
+        .search-section {
+            margin-top: 90px;
+            padding: 4rem 5%;
+            background: linear-gradient(135deg, var(--warm-cream) 0%, var(--warm-white) 100%);
+            min-height: 100vh;
+        }
+        
+        .search-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .search-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .search-header h1 {
+            font-family: 'Jost', sans-serif;
+            font-size: 3rem;
+            font-weight: 600;
+            color: var(--dusty-blue-dark);
+            margin-bottom: 1rem;
+        }
+        
+        .search-header p {
+            font-size: 1.2rem;
+            color: var(--soft-gray);
+        }
+        
+        /* ========================================
+           SEARCH INTERFACE
+           ======================================== */
+        .search-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            margin-bottom: 3rem;
+        }
+        
+        .search-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .search-tab {
+            padding: 1rem 2rem;
+            background: none;
+            border: none;
+            font-family: 'Jost', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--soft-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+        }
+        
+        .search-tab.active {
+            color: var(--dusty-blue-dark);
+            border-bottom-color: var(--dusty-blue);
+        }
+        
+        .search-tab:hover {
+            color: var(--dusty-blue);
+        }
+        
+        .search-form {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .form-field {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-field label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--charcoal);
+        }
+        
+        .form-field input,
+        .form-field select {
+            padding: 0.9rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Jost', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-field input:focus,
+        .form-field select:focus {
+            outline: none;
+            border-color: var(--dusty-blue);
+        }
+        
+        .search-btn {
+            grid-column: 1 / -1;
+            padding: 1.2rem;
+            background: var(--dusty-blue);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .search-btn:hover {
+            background: var(--dusty-blue-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(107, 143, 163, 0.3);
+        }
+        
+        /* ========================================
+           MLS IFRAME CONTAINER
+           ======================================== */
+        .mls-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            min-height: 1200px;
+        }
+        
+        .mls-placeholder {
+            padding: 6rem 2rem;
+            text-align: center;
+            color: var(--soft-gray);
+        }
+        
+        .mls-placeholder h2 {
+            font-size: 2rem;
+            color: var(--dusty-blue-dark);
+            margin-bottom: 1.5rem;
+        }
+        
+        .mls-placeholder p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        
+        .mls-placeholder .setup-steps {
+            text-align: left;
+            max-width: 700px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--warm-cream);
+            border-radius: 8px;
+        }
+        
+        .mls-placeholder .setup-steps h3 {
+            color: var(--dusty-blue-dark);
+            margin-bottom: 1rem;
+        }
+        
+        .mls-placeholder .setup-steps ol {
+            margin-left: 1.5rem;
+        }
+        
+        .mls-placeholder .setup-steps li {
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+        
+        #mls-frame {
+            width: 100%;
+            min-height: 1200px;
+            border: none;
+            display: none; /* Hidden until MLS URL is configured */
+        }
+        
+        /* ========================================
+           RESPONSIVE DESIGN
+           ======================================== */
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--warm-white);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                display: none;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .search-header h1 {
+                font-size: 2rem;
+            }
+            
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .back-to-home {
+                top: auto;
+                bottom: 6rem;
+                right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVIGATION - IDENTICAL TO INDEX.HTML -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Priscilla Yeboah</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle Menu">☰</button>
+            <ul class="nav-links">
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="search.html">Search Properties</a></li>
+                <li><a href="index.html#testimonials">Testimonials</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- BACK TO HOME BUTTON -->
+    <a href="index.html" class="back-to-home">← Back to Home</a>
+
+    <!-- BACK TO TOP BUTTON -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to Top">↑</button>
+
+    <!-- SEARCH SECTION -->
+    <section class="search-section">
+        <div class="search-container">
+            <div class="search-header">
+                <h1>Find Your Dream Property</h1>
+                <p>Search thousands of live listings updated daily from Bright MLS</p>
+            </div>
+
+            <!-- SEARCH INTERFACE -->
+            <div class="search-card">
+                <div class="search-tabs">
+                    <button class="search-tab active" data-status="for-sale">For Sale</button>
+                    <button class="search-tab" data-status="for-rent">For Rent</button>
+                    <button class="search-tab" data-status="sold">Recently Sold</button>
+                </div>
+
+                <form class="search-form" id="searchForm">
+                    <div class="form-field">
+                        <label for="zipCode">ZIP Code</label>
+                        <input type="text" id="zipCode" placeholder="e.g., 19801">
+                    </div>
+
+                    <div class="form-field">
+                        <label for="city">City</label>
+                        <input type="text" id="city" placeholder="e.g., Wilmington">
+                    </div>
+
+                    <div class="form-field">
+                        <label for="address">Address or Keyword</label>
+                        <input type="text" id="address" placeholder="Street, neighborhood, etc.">
+                    </div>
+
+                    <button type="submit" class="search-btn">Search Properties</button>
+                </form>
+            </div>
+
+            <!-- MLS IFRAME CONTAINER -->
+            <div class="mls-container">
+                <!-- MLS Iframe (hidden until URL configured) -->
+                <iframe id="mls-frame" scrolling="yes"></iframe>
+
+                <!-- Placeholder (shown until MLS configured) -->
+                <div class="mls-placeholder" id="mlsPlaceholder">
+                    <h2>Live Property Search Coming Soon</h2>
+                    <p>This page will display live property listings from Bright MLS once the integration is complete. All properties will be searchable by location, price, bedrooms, and more.</p>
+
+                    <div class="setup-steps">
+                        <h3>📋 To activate live property search:</h3>
+                        <ol>
+                            <li>Log into your <strong>Bright MLS</strong> account at BrightMLS.com</li>
+                            <li>Click <strong>Account</strong> dropdown (top right) → <strong>Accounts & Settings</strong></li>
+                            <li>Navigate to <strong>IDX and VOW Licensing Request</strong></li>
+                            <li>Select <strong>"Framed Solution"</strong> or <strong>"IDX Search Link"</strong> option</li>
+                            <li>Sign digital agreement (if prompted)</li>
+                            <li>Copy the provided iframe URL and send it to your developer</li>
+                        </ol>
+                        <p style="margin-top: 1.5rem;"><strong>Cost:</strong> Approximately $10/month for live MLS data access</p>
+                        <p><strong>Integration time:</strong> 5 minutes once URL is provided (2-line code update)</p>
+                    </div>
+
+                    <p style="margin-top: 2rem; font-style: italic;">In the meantime, feel free to <a href="index.html#contact" style="color: var(--dusty-blue); font-weight: 600;">contact Priscilla directly</a> for personalized property searches and recommendations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        console.log('=== PROPERTY SEARCH PAGE - DEBUG LOG ===');
+        
+        // ========================================
+        // WAIT FOR DOM TO LOAD
+        // ========================================
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('✅ DOM Content Loaded');
+            
+            // ========================================
+            // MOBILE MENU TOGGLE
+            // ========================================
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuToggle && navLinks) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    console.log('📱 Mobile menu toggled');
+                });
+            }
+            
+            // ========================================
+            // BACK TO TOP BUTTON - CRITICAL FEATURE
+            // ========================================
+            const backToTop = document.getElementById('backToTop');
+            console.log('🔍 Back to top button found:', backToTop);
+            
+            if (backToTop) {
+                window.addEventListener('scroll', function() {
+                    const scrollY = window.scrollY;
+                    
+                    if (scrollY > 300) {
+                        if (!backToTop.classList.contains('visible')) {
+                            backToTop.classList.add('visible');
+                            console.log('✅ Back to top button shown (scrollY:', scrollY, ')');
+                        }
+                    } else {
+                        if (backToTop.classList.contains('visible')) {
+                            backToTop.classList.remove('visible');
+                            console.log('❌ Back to top button hidden (scrollY:', scrollY, ')');
+                        }
+                    }
+                });
+                
+                backToTop.addEventListener('click', function() {
+                    console.log('🔝 Back to top clicked - scrolling to top');
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            } else {
+                console.error('❌ ERROR: Back to top button not found!');
+            }
+            
+            // ========================================
+            // SEARCH TABS
+            // ========================================
+            const searchTabs = document.querySelectorAll('.search-tab');
+            
+            searchTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    searchTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    console.log('🏷️ Search tab changed to:', this.dataset.status);
+                });
+            });
+            
+            // ========================================
+            // SEARCH FORM HANDLING
+            // ========================================
+            const searchForm = document.getElementById('searchForm');
+            const mlsFrame = document.getElementById('mls-frame');
+            const mlsPlaceholder = document.getElementById('mlsPlaceholder');
+            
+            // MLS Base URL - CONFIGURE THIS WHEN BRIGHT MLS LINK RECEIVED
+            let mlsBaseUrl = ''; // Will be set once Priscilla provides the Bright MLS link
+            
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const zipCode = document.getElementById('zipCode').value;
+                const city = document.getElementById('city').value;
+                const address = document.getElementById('address').value;
+                const activeTab = document.querySelector('.search-tab.active').dataset.status;
+                
+                console.log('🔍 Search submitted:', {
+                    zipCode: zipCode,
+                    city: city,
+                    address: address,
+                    status: activeTab
+                });
+                
+                if (mlsBaseUrl) {
+                    // Build search URL with parameters
+                    let searchUrl = mlsBaseUrl;
+                    const params = [];
+                    
+                    if (zipCode) params.push('zip=' + encodeURIComponent(zipCode));
+                    if (city) params.push('city=' + encodeURIComponent(city));
+                    if (address) params.push('q=' + encodeURIComponent(address));
+                    if (activeTab) params.push('status=' + activeTab);
+                    
+                    if (params.length > 0) {
+                        searchUrl += (mlsBaseUrl.includes('?') ? '&' : '?') + params.join('&');
+                    }
+                    
+                    // Load results in iframe
+                    mlsFrame.src = searchUrl;
+                    mlsFrame.style.display = 'block';
+                    mlsPlaceholder.style.display = 'none';
+                    
+                    console.log('✅ Loading MLS results:', searchUrl);
+                } else {
+                    alert('Live property search will be available once Bright MLS integration is complete. Please contact Priscilla directly for property searches.');
+                    console.log('⚠️ MLS URL not configured yet');
+                }
+            });
+            
+            // ========================================
+            // CONFIGURATION INSTRUCTIONS
+            // ========================================
+            console.log(`
+                
+                ╔════════════════════════════════════════════════════════════╗
+                ║  TO ACTIVATE LIVE PROPERTY SEARCH:                        ║
+                ║                                                            ║
+                ║  1. Get Bright MLS "Framed Solution" URL from Priscilla   ║
+                ║  2. Set mlsBaseUrl variable (line 324)                    ║
+                ║  3. Example: mlsBaseUrl = 'https://your-mls-url.com'      ║
+                ║  4. Save and upload - search will work immediately!       ║
+                ╚════════════════════════════════════════════════════════════╝
+                
+            `);
+            
+            console.log('✅ All JavaScript initialized successfully');
+        });
+    </script>
+</body>
+</html>

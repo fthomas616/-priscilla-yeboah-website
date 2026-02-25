@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Priscilla Yeboah | Your Trusted Real Estate Partner</title>
+    <meta name="description" content="Expert real estate guidance. Buy, sell, or rent your dream home with personalized service and local expertise.">
+    
+    <!-- Google Fonts - Jost Only -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           CSS VARIABLES - APPROVED COLOR PALETTE
+           ======================================== */
+        :root {
+            --dusty-blue: #6b8fa3;
+            --dusty-blue-dark: #4a6575;
+            --dusty-blue-light: #8baec1;
+            --champagne: #d4af7a;
+            --champagne-pale: #f4ead8;
+            --warm-white: #faf8f5;
+            --warm-cream: #f5f1eb;
+            --charcoal: #2c2c2c;
+            --soft-gray: #6b6b6b;
+        }
+        
+        /* ========================================
+           RESET & BASE STYLES
+           ======================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Jost', sans-serif;
+            color: var(--charcoal);
+            background: var(--warm-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* ========================================
+           NAVIGATION - LOGO LEFT, MENU RIGHT
+           ======================================== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(250, 248, 245, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(107, 143, 163, 0.1);
+            padding: 1.2rem 5%;
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between; /* CRITICAL: Logo left, menu right */
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Jost', sans-serif; /* Changed from Cormorant Garamond */
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--dusty-blue-dark);
+            text-decoration: none;
+            letter-spacing: 0.02em;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 400;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            letter-spacing: 0.02em;
+        }
+        
+        .nav-links a:hover {
+            color: var(--dusty-blue);
+        }
+        
+        /* Mobile Navigation */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--dusty-blue-dark);
+            cursor: pointer;
+        }
+        
+        /* ========================================
+           BACK TO TOP BUTTON - CRITICAL FEATURE
+           ======================================== */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--dusty-blue);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 4px 12px rgba(107, 143, 163, 0.3);
+            border: none;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: var(--dusty-blue-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(107, 143, 163, 0.4);
+        }
+        
+        /* ========================================
+           HERO SECTION
+           ======================================== */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-top: 70px;
+        }
+        
+        .hero-slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        .hero-slide.active {
+            opacity: 1;
+        }
+        
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(74, 101, 117, 0.7) 0%, rgba(107, 143, 163, 0.5) 100%);
+            z-index: 2;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            max-width: 900px;
+        }
+        
+        .hero-eyebrow {
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--champagne);
+            margin-bottom: 1rem;
+        }
+        
+        .hero-title {
+            font-family: 'Jost', sans-serif; /* CHANGED FROM SERIF */
+            font-size: 4rem;
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hero-description {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            color: rgba(255, 255, 255, 0.95);
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary, .btn-secondary {
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        
+        .btn-primary {
+            background: var(--champagne);
+            color: var(--charcoal);
+            border-color: var(--champagne);
+        }
+        
+        .btn-primary:hover {
+            background: transparent;
+            border-color: var(--champagne);
+            color: var(--champagne);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border-color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: var(--dusty-blue-dark);
+        }
+        
+        /* Slideshow Controls */
+        .slideshow-controls {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 4;
+            display: flex;
+            gap: 0.8rem;
+        }
+        
+        .slide-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            padding: 0;
+        }
+        
+        .slide-dot.active {
+            background: var(--champagne);
+            width: 30px;
+            border-radius: 6px;
+        }
+        
+        /* ========================================
+           ABOUT SECTION
+           ======================================== */
+        .about {
+            padding: 8rem 5%;
+            background: var(--warm-cream);
+        }
+        
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+        
+        .about-image-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Circular gradient background for logo */
+        .logo-circle {
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, var(--champagne-pale) 0%, var(--dusty-blue-light) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 35px rgba(107, 143, 163, 0.3);
+            padding: 2rem;
+        }
+        
+        .about-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: white;
+            border-radius: 50%;
+            padding: 1rem;
+        }
+        
+        /* Fallback placeholder if image doesn't load */
+        .logo-placeholder {
+            width: 100%;
+            height: 100%;
+            background: var(--champagne-pale);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dusty-blue-dark);
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .about-content h2 {
+            font-family: 'Jost', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--dusty-blue-dark);
+        }
+        
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--soft-gray);
+        }
+        
+        .credentials {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .badge {
+            padding: 0.6rem 1.2rem;
+            background: var(--dusty-blue-light);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        /* ========================================
+           SERVICES SECTION
+           ======================================== */
+        .services {
+            padding: 8rem 5%;
+            background: var(--warm-white);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-family: 'Jost', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 4rem;
+            color: var(--dusty-blue-dark);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .service-card {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(107, 143, 163, 0.15);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dusty-blue-dark);
+        }
+        
+        .service-card p {
+            color: var(--soft-gray);
+            line-height: 1.6;
+        }
+        
+        /* ========================================
+           FEATURED PROPERTIES - HIDDEN
+           ======================================== */
+        .properties {
+            display: none; /* COMPLETELY HIDDEN until MLS integration */
+        }
+        
+        /* ========================================
+           TESTIMONIALS SECTION - AUTO-ROTATING
+           ======================================== */
+        .testimonials {
+            padding: 8rem 5%;
+            background: var(--dusty-blue-dark);
+            color: white;
+        }
+        
+        .testimonials .section-title {
+            color: white;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2.5rem;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            animation: fadeIn 0.6s ease-in forwards;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .testimonial-quote {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--champagne);
+        }
+        
+        .testimonial-title {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* ========================================
+           CONTACT SECTION
+           ======================================== */
+        .contact {
+            padding: 8rem 5%;
+            background: var(--warm-cream);
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--dusty-blue-dark);
+        }
+        
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--dusty-blue);
+            min-width: 30px;
+        }
+        
+        .contact-text h4 {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: var(--dusty-blue-dark);
+        }
+        
+        .contact-text p {
+            color: var(--soft-gray);
+            line-height: 1.6;
+        }
+        
+        .contact-text a {
+            color: var(--dusty-blue);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-text a:hover {
+            color: var(--dusty-blue-dark);
+        }
+        
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.9rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Jost', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--dusty-blue);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--dusty-blue);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background: var(--dusty-blue-dark);
+        }
+        
+        /* ========================================
+           FOOTER
+           ======================================== */
+        footer {
+            background: var(--charcoal);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+        
+        footer p {
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+        
+        .social-links a {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--champagne);
+        }
+        
+        /* ========================================
+           RESPONSIVE DESIGN
+           ======================================== */
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--warm-white);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                display: none;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo-circle {
+                width: 300px;
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">Priscilla Yeboah</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle Menu">☰</button>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="search.html">Search Properties</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- BACK TO TOP BUTTON -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to Top">↑</button>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-slideshow">
+            <!-- Slide 1: Modest Single-Family Home -->
+            <div class="hero-slide active">
+                <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1920&q=80" alt="Cozy family home">
+            </div>
+            <!-- Slide 2: Charming Townhouse -->
+            <div class="hero-slide">
+                <img src="https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?w=1920&q=80" alt="Charming townhouse">
+            </div>
+            <!-- Slide 3: Modern Apartment -->
+            <div class="hero-slide">
+                <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1920&q=80" alt="Modern apartment">
+            </div>
+        </div>
+        
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
+            <p class="hero-eyebrow">Premier Real Estate Service</p>
+            <h1 class="hero-title">Your Delaware Home Journey Starts Here</h1>
+            <p class="hero-description">Expert guidance, personalized service, and local knowledge to help you buy, sell, or rent your dream property.</p>
+            <div class="hero-buttons">
+                <a href="search.html" class="btn-primary">Browse Listings</a>
+                <a href="#contact" class="btn-secondary">Get in Touch</a>
+            </div>
+        </div>
+        
+        <div class="slideshow-controls">
+            <button class="slide-dot active" data-slide="0" aria-label="Slide 1"></button>
+            <button class="slide-dot" data-slide="1" aria-label="Slide 2"></button>
+            <button class="slide-dot" data-slide="2" aria-label="Slide 3"></button>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="about" id="about">
+        <div class="section-container">
+            <div class="about-grid">
+                <div class="about-image-container">
+                    <div class="logo-circle">
+                        <img src="/images/priscilla-logo.png" 
+                             alt="Priscilla Yeboah" 
+                             class="about-image"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="logo-placeholder" style="display: none;">
+                            Priscilla Yeboah<br>Real Estate
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-content">
+                    <h2>Dedicated to Your Success</h2>
+                    <p>With over 15 years of experience in real estate, I bring a wealth of knowledge and a proven track record of helping clients achieve their property goals. Whether you're a first-time buyer, seasoned investor, or looking to sell, I'm here to guide you every step of the way.</p>
+                    <p>My approach combines deep market expertise with genuine care for my clients' needs. I believe in building lasting relationships based on trust, transparency, and exceptional results.</p>
+                    
+                    <div class="credentials">
+                        <span class="badge">Licensed Realtor</span>
+                        <span class="badge">Market Expert</span>
+                        <span class="badge">15+ Years Experience</span>
+                    </div>
+                    
+                    <a href="#contact" class="btn-primary">Work With Me</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section class="services" id="services">
+        <div class="section-container">
+            <h2 class="section-title">Complete Real Estate Services</h2>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🏡</div>
+                    <h3>Home Buying</h3>
+                    <p>Find your perfect home with expert guidance through every step of the buying process, from search to closing.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">💰</div>
+                    <h3>Home Selling</h3>
+                    <p>Maximize your home's value with strategic pricing, professional marketing, and skilled negotiation.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🔑</div>
+                    <h3>Rental Properties</h3>
+                    <p>Discover quality rental properties that fit your lifestyle and budget, with lease negotiation support.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-container">
+            <h2 class="section-title">What My Clients Say</h2>
+            
+            <div class="testimonials-grid" id="testimonialsGrid">
+                <!-- Testimonials will be dynamically loaded by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact" id="contact">
+        <div class="section-container">
+            <h2 class="section-title">Let's Connect</h2>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">📞</div>
+                            <div class="contact-text">
+                                <h4>Phone</h4>
+                                <p><a href="tel:+13028986379">+1 (302) 898-6379</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">✉️</div>
+                            <div class="contact-text">
+                                <h4>Email</h4>
+                                <p><a href="mailto:contact@priscillayeboah.com">contact@priscillayeboah.com</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">📍</div>
+                            <div class="contact-text">
+                                <h4>Office</h4>
+                                <p>2706 Kirkwood Highway<br>Wilmington, Delaware</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">🕒</div>
+                            <div class="contact-text">
+                                <h4>Hours</h4>
+                                <p>Monday - Friday: 8:00 AM - 5:00 PM<br>Saturday - Sunday: Closed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2025 Priscilla Yeboah Real Estate. All rights reserved.</p>
+        <p>Licensed Real Estate Professional</p>
+        
+        <div class="social-links">
+            <a href="#" aria-label="Facebook">📘</a>
+            <a href="#" aria-label="Instagram">📷</a>
+            <a href="#" aria-label="LinkedIn">💼</a>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        console.log('=== PRISCILLA YEBOAH WEBSITE - DEBUG LOG ===');
+        
+        // ========================================
+        // WAIT FOR DOM TO LOAD
+        // ========================================
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('✅ DOM Content Loaded');
+            
+            // ========================================
+            // MOBILE MENU TOGGLE
+            // ========================================
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuToggle && navLinks) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    console.log('📱 Mobile menu toggled');
+                });
+            }
+            
+            // ========================================
+            // BACK TO TOP BUTTON - CRITICAL FEATURE
+            // ========================================
+            const backToTop = document.getElementById('backToTop');
+            console.log('🔍 Back to top button found:', backToTop);
+            
+            if (backToTop) {
+                // Scroll event listener
+                window.addEventListener('scroll', function() {
+                    const scrollY = window.scrollY;
+                    
+                    if (scrollY > 300) {
+                        if (!backToTop.classList.contains('visible')) {
+                            backToTop.classList.add('visible');
+                            console.log('✅ Back to top button shown (scrollY:', scrollY, ')');
+                        }
+                    } else {
+                        if (backToTop.classList.contains('visible')) {
+                            backToTop.classList.remove('visible');
+                            console.log('❌ Back to top button hidden (scrollY:', scrollY, ')');
+                        }
+                    }
+                });
+                
+                // Click event listener
+                backToTop.addEventListener('click', function() {
+                    console.log('🔝 Back to top clicked - scrolling to top');
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            } else {
+                console.error('❌ ERROR: Back to top button not found!');
+            }
+            
+            // ========================================
+            // HERO SLIDESHOW
+            // ========================================
+            const slides = document.querySelectorAll('.hero-slide');
+            const dots = document.querySelectorAll('.slide-dot');
+            let currentSlide = 0;
+            
+            console.log('🎬 Slideshow initialized with', slides.length, 'slides');
+            
+            function showSlide(index) {
+                // Remove active class from all
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                // Add active class to current
+                slides[index].classList.add('active');
+                dots[index].classList.add('active');
+                
+                console.log('🖼️ Showing slide:', index + 1);
+            }
+            
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+            
+            // Auto-advance every 5 seconds
+            setInterval(nextSlide, 5000);
+            
+            // Dot click handlers
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', function() {
+                    currentSlide = index;
+                    showSlide(currentSlide);
+                });
+            });
+            
+            // ========================================
+            // ROTATING TESTIMONIALS
+            // ========================================
+            const allTestimonials = [
+                {
+                    quote: "Priscilla made buying our first home an absolute joy. Her patience and expertise guided us every step of the way.",
+                    author: "Teju Adelagunja",
+                    title: "Happy Homebuyer"
+                },
+                {
+                    quote: "Patient, flexible, and incredibly knowledgeable. Priscilla helped us find the perfect home for our growing family.",
+                    author: "Emeka Boka",
+                    title: "Satisfied Client"
+                },
+                {
+                    quote: "Highly recommended! Priscilla's professionalism and dedication made our home selling process smooth and stress-free.",
+                    author: "Abiodun Kalejaiye",
+                    title: "Happy Seller"
+                },
+                {
+                    quote: "Amazing service from start to finish. Priscilla truly cares about her clients and goes above and beyond.",
+                    author: "EA K",
+                    title: "Grateful Client"
+                },
+                {
+                    quote: "Priscilla's market knowledge and negotiation skills helped us get the best deal possible. Couldn't be happier!",
+                    author: "Wole Legend",
+                    title: "Satisfied Buyer"
+                },
+                {
+                    quote: "Professional, responsive, and genuinely invested in finding us the right property. Highly recommend Priscilla!",
+                    author: "O U",
+                    title: "Happy Client"
+                }
+            ];
+            
+            let currentTestimonialSet = 0;
+            const testimonialsGrid = document.getElementById('testimonialsGrid');
+            
+            function showTestimonials(startIndex) {
+                // Show 4 testimonials at a time
+                const endIndex = startIndex + 4;
+                const testimonialsToShow = [];
+                
+                for (let i = startIndex; i < endIndex; i++) {
+                    const index = i % allTestimonials.length;
+                    testimonialsToShow.push(allTestimonials[index]);
+                }
+                
+                testimonialsGrid.innerHTML = testimonialsToShow.map(t => `
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote">"${t.quote}"</p>
+                        <p class="testimonial-author">${t.author}</p>
+                        <p class="testimonial-title">${t.title}</p>
+                    </div>
+                `).join('');
+                
+                console.log('💬 Showing testimonials:', startIndex, 'to', endIndex - 1);
+            }
+            
+            // Initial display
+            showTestimonials(0);
+            
+            // Rotate every 8 seconds
+            setInterval(function() {
+                currentTestimonialSet = (currentTestimonialSet + 4) % allTestimonials.length;
+                showTestimonials(currentTestimonialSet);
+                console.log('🔄 Testimonials rotated');
+            }, 8000);
+            
+            // ========================================
+            // CONTACT FORM HANDLING
+            // ========================================
+            const contactForm = document.getElementById('contactForm');
+            
+            if (contactForm) {
+                contactForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    console.log('📧 Contact form submitted');
+                    
+                    const formData = new FormData(this);
+                    
+                    try {
+                        // WordPress Contact Form 7 endpoint (update with actual form ID when ready)
+                        const response = await fetch('/wp/wp-json/contact-form-7/v1/contact-forms/YOUR_FORM_ID/feedback', {
+                            method: 'POST',
+                            body: formData
+                        });
+                        
+                        if (response.ok) {
+                            alert('Thank you! Your message has been sent. I\'ll get back to you soon.');
+                            this.reset();
+                            console.log('✅ Form submitted successfully');
+                        } else {
+                            throw new Error('Form submission failed');
+                        }
+                    } catch (error) {
+                        console.log('⚠️ Form backend not yet configured, showing demo message');
+                        alert('Message received! (Note: Form backend will be configured during deployment.)');
+                        this.reset();
+                    }
+                });
+            }
+            
+            // ========================================
+            // SMOOTH SCROLL FOR ANCHOR LINKS
+            // ========================================
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href !== '#' && href !== '#!') {
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        if (target) {
+                            const offsetTop = target.offsetTop - 80; // Account for fixed nav
+                            window.scrollTo({
+                                top: offsetTop,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+            
+            console.log('✅ All JavaScript initialized successfully');
+        });
+    </script>
+</body>
+</html>

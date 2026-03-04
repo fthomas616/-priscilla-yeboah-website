@@ -78,13 +78,17 @@
             height: 66px;
             width: auto;
             object-fit: contain;
-            transition: transform 0.3s ease;
+            /* smoother in/out and hint browser about upcoming transforms */
+            transition: transform 0.3s ease-in-out;
+            will-change: transform;
             cursor: pointer;
         }
 
         .logo img:hover {
             transform: scale(3.45);
             transform-origin: top left;
+            /* wait 0.25s before expanding so quick re-entry doesn't trigger it */
+            transition-delay: 0.25s;
         }
 
         .logo-text {

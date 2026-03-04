@@ -68,11 +68,23 @@
         }
         
         .logo {
-            font-family: 'Jost', sans-serif; /* Changed from Cormorant Garamond */
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-family: 'Jost', sans-serif;
             font-size: 1.5rem;
             font-weight: 500;
             color: var(--dusty-blue-dark);
-            text-decoration: none;
             letter-spacing: 0.02em;
         }
         
@@ -720,7 +732,10 @@
     <!-- NAVIGATION -->
     <nav>
         <div class="nav-container">
-            <a href="#" class="logo">Priscilla Yeboah</a>
+            <a href="#" class="logo">
+                <img src="./images/PA_Logo.png" alt="PA Logo">
+                <span class="logo-text">Priscilla Yeboah</span>
+            </a>
             <button class="mobile-menu-toggle" aria-label="Toggle Menu">☰</button>
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
